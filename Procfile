@@ -1,1 +1,1 @@
-web: node nodemon server.js
+web: npm start
