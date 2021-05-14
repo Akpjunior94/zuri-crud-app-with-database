@@ -11,7 +11,7 @@ app.use(express.json());
 
 
 // creating mySql Connection
-let connection = mysql.createConnection({
+const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
@@ -30,7 +30,9 @@ connection.connect((err) => {
 // Home api route
 app.get('/', (req, res)=>{
   res.end(`<h1 style: text-align:center;>Welcome To Zuri Task CRUD APP</h1>
-  <p>put <strong><em>/profiles</em></strong>  to see data in the database</p>
+  <p>use the <strong><em>/profiles</em></strong> route to see all users data in the database</p>
+  <p>use the <strong><em>/update-users</em></strong> route to update users data in the database</p>
+  <p>use <strong><em>/delete-users</em></strong>  route to delete user data in the database</p>
   `)
 })
 
@@ -44,15 +46,12 @@ app.get('/profiles', (req, res)=>{
     } else {
       console.log(rows);
     }
+    res.send(rows);
   })
-
-  res.end(`<h1>Check your node terminal for All users data in the database</h1>
-
-  `)
 })
 
 // UPDATE USER profile in DB api route
-app.get('/update-users', (req, res)=>{
+app.put('/update-users', (req, res)=>{
 
   const { id, name, email, country } = req.body;
 
@@ -61,13 +60,13 @@ app.get('/update-users', (req, res)=>{
       if (err) {
         console.log(err)
       } else {
-        console.log(rows);
+        res.send(rows);
       }
     })
 
-  res.send(`<h1>User has been Updated</h1>
+  // res.send(`<h1>User has been Updated</h1>
 
-  `)
+  // `)
 })
 
 // DELETE USER profile in DB api route
