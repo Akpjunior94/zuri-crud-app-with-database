@@ -31,8 +31,8 @@ connection.connect((err) => {
 app.get('/', (req, res)=>{
   res.end(`<h1 style: text-align:center;>Welcome To Zuri Task CRUD APP</h1>
   <p>use the <strong><em>/profiles</em></strong> route to see all users data in the database</p>
-  <p>use the <strong><em>/update-users</em></strong> route to update users data in the database</p>
-  <p>use <strong><em>/delete-users</em></strong>  route to delete user data in the database</p>
+  <p>use the <strong><em>/update-users</em></strong> route to update users data in the database using Postman</p>
+  <p>use <strong><em>/delete-users</em></strong> route to delete user data in the database using Postman</p>
   `)
 })
 
@@ -45,13 +45,13 @@ app.get('/profiles', (req, res)=>{
       console.log(err)
     } else {
       console.log(rows);
+      res.send(rows);
     }
-    res.send(rows);
   })
 })
 
 // UPDATE USER profile in DB api route
-app.put('/update-users', (req, res)=>{
+app.put('/update-users', (req, res)=>{  
 
   const { id, name, email, country } = req.body;
 
@@ -60,9 +60,11 @@ app.put('/update-users', (req, res)=>{
       if (err) {
         console.log(err)
       } else {
-        res.send(rows);
+        // res.send(rows);
+        res.send(`User with the name: ${name} has been updated`)
       }
     })
+    console.log(req.body)
 
   // res.send(`<h1>User has been Updated</h1>
 
@@ -72,20 +74,14 @@ app.put('/update-users', (req, res)=>{
 // DELETE USER profile in DB api route
 app.delete('/delete-user/:id', (req, res)=>{
 
-  const { id, name, email, country } = req.body;
-
-    connection.query(`UPDATE profiles SET name = ?, email = ?, country = ? WHERE id = ?`, [name, email, country, id], (err, rows) => {
+    connection.query(`DELETE from profiles WHERE id = ?`, [req.params.id], (err, rows) => {
 
       if (err) {
         console.log(err)
       } else {
-        console.log(rows);
+        res.send(`User with the ID: ${[req.params.id]} has been Deleted`);
       }
     })
-
-  res.send(`<h1>Check your node terminal for All users data in the database</h1>
-
-  `)
 })
 
 
