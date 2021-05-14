@@ -32,7 +32,7 @@ app.get('/', (req, res)=>{
   res.end(`<h1 style: text-align:center;>Welcome To Zuri Task CRUD APP</h1>
   <p>use the <strong><em>/profiles</em></strong> route to see all users data in the database</p>
   <p>use the <strong><em>/update-users</em></strong> route to update users data in the database using Postman</p>
-  <p>use <strong><em>/delete-users</em></strong> route to delete user data in the database using Postman</p>
+  <p>use <strong><em>/delete-users/{id}</em></strong> route to delete user data in the database using Postman</p>
   `)
 })
 
