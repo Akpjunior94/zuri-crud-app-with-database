@@ -44,7 +44,6 @@ app.get('/profiles', (req, res)=>{
     if (err) {
       console.log(err)
     } else {
-      console.log(rows);
       res.send(rows);
     }
   })
